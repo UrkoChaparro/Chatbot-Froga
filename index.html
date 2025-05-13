@@ -131,8 +131,10 @@
 
     // ✅ Imagen de contacto
     if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-      return `📞 Puedes contactar con nosotros aquí:<br>
-      <img src="<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png">" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
+     return '📞 Puedes contactar con nosotros aquí:<br>' +
+       '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png" ' +
+       'alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+
     }
 
     // 🏫 Respuesta sobre grados
