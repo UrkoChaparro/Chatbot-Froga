@@ -89,47 +89,52 @@
   </div>
 
   <script>
-    const chat = document.getElementById("chat");
+    <script>
+  const chat = document.getElementById("chat");
 
-    function appendMessage(sender, message, className) {
-      const msg = document.createElement("div");
-      msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
+  function appendMessage(sender, message, className) {
+    const msg = document.createElement("div");
+    msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function getBotResponse(input) {
+    input = input.toLowerCase().trim();
+
+    // ✅ Imagen de contacto (puedes reemplazar esta URL con la de tu imagen en GitHub)
+    if (/número|numero|teléfono|telefono|contactar/.test(input)) {
+      return `📞 Puedes contactar con nosotros aquí:<br>
+      <img src="https://raw.githubusercontent.com/tu_usuario/tu_repo/main/telefono-contacto.jpg" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
     }
 
-    function getBotResponse(input) {
-      input = input.toLowerCase().trim();
-
-      // Responder sobre Inmakulada Tolosa y sus grados
-      if (
-        input.includes("inmakulada") ||
-        input.includes("tolosa") ||
-        input.includes("qué grados hay") ||
-        input.includes("qué se puede estudiar") ||
-        input.includes("ciclos") ||
-        input.includes("fp") ||
-        input.includes("enfermería") ||
-        input.includes("cursos") ||
-        input.includes("grado medio") ||
-        input.includes("gradomedio") ||
-        input.includes("grado superior") ||
-        input.includes("gradosuperior") ||
-        input.includes("grados") ||
-        input.includes("que puedo estudiar en inmakulada") ||
-        input.includes("hay algo para estudiar") ||
-        input.includes("no se que estudiar") ||
-        input.includes("no se que estudiar") ||
-        input.includes("inmaku") ||
-        /te cueces|que cuentas|como andas|que pasa|ke se puede estudiar|ke hay/.test(input)
-      ) {
-        return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+    // 🏫 Respuesta sobre grados
+    if (
+      input.includes("inmakulada") ||
+      input.includes("tolosa") ||
+      input.includes("qué grados hay") ||
+      input.includes("qué se puede estudiar") ||
+      input.includes("ciclos") ||
+      input.includes("fp") ||
+      input.includes("enfermería") ||
+      input.includes("cursos") ||
+      input.includes("grado medio") ||
+      input.includes("gradomedio") ||
+      input.includes("grado superior") ||
+      input.includes("gradosuperior") ||
+      input.includes("grados") ||
+      input.includes("que puedo estudiar en inmakulada") ||
+      input.includes("hay algo para estudiar") ||
+      input.includes("no se que estudiar") ||
+      input.includes("inmaku") ||
+      /te cueces|que cuentas|como andas|que pasa|ke se puede estudiar|ke hay/.test(input)
+    ) {
+      return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
 
 🔹 **Grado Medio**:
 - Técnico en atención a personas en situación de dependencia
 - Auxiliar de enfermería
 - Técnico de farmacia y parafarmacia
-
 
 🔹 **Grado Superior**:
 - Integración social
@@ -138,41 +143,40 @@
 - Audiología protésica
 - Radioterapia y dosimetría
 
-
 🔹 **FP Básica**:
 - Peluquería y estética
 
-
 🔗 Más información en: https://inmakuladatolosa.eus`;
-      }
-
-      // Saludos
-      if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
-        return "¡Hola! ¿Qué necesitas? 😊";
-      }
-
-      // Otras respuestas comunes
-      if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
-      if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
-      if (input.includes("gracias")) return "¡De nada!";
-      if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
-
-      return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
     }
 
-    function sendMessage() {
-      const inputBox = document.getElementById("input");
-      const userText = inputBox.value;
-      if (userText.trim() === "") return;
-      appendMessage("Tú", userText, "user");
-      const botReply = getBotResponse(userText);
-      setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
-      inputBox.value = "";
+    // 👋 Saludos
+    if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
+      return "¡Hola! ¿Qué necesitas? 😊";
     }
 
-    document.getElementById("input").addEventListener("keydown", function(event) {
-      if (event.key === "Enter") sendMessage();
-    });
+    // 🔄 Otras respuestas comunes
+    if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
+    if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
+    if (input.includes("gracias")) return "¡De nada!";
+    if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
+
+    return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
+  }
+
+  function sendMessage() {
+    const inputBox = document.getElementById("input");
+    const userText = inputBox.value;
+    if (userText.trim() === "") return;
+    appendMessage("Tú", userText, "user");
+    const botReply = getBotResponse(userText);
+    setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
+    inputBox.value = "";
+  }
+
+  document.getElementById("input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") sendMessage();
+  });
+
   </script>
 </body>
 </html>
