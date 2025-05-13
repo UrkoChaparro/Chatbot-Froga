@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbot Inteligente</title>
+  <title>Chatbot Inmakulada Tolosa</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -70,7 +70,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Chatbot Inteligente</h2>
+    <h2>Chatbot Inmakulada Tolosa</h2>
     <div id="chat"></div>
     <div id="userInput">
       <input type="text" id="input" placeholder="Escribe algo..." />
@@ -91,51 +91,42 @@
     function getBotResponse(input) {
       input = input.toLowerCase().trim();
 
+      // Responder sobre Inmakulada Tolosa y sus grados
+      if (
+        input.includes("inmakulada") ||
+        input.includes("tolosa") ||
+        input.includes("qué grados hay") ||
+        input.includes("qué se puede estudiar") ||
+        input.includes("ciclos") ||
+        input.includes("fp") ||
+        input.includes("enfermería en tolosa")
+      ) {
+        return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+
+🔹 **Grado Medio**:
+- Técnico en atención a personas en situación de dependencia
+- Auxiliar de enfermería
+- Técnico de farmacia y parafarmacia
+
+🔹 **Grado Superior**:
+- Integración social
+- Diagnóstico por imagen y medicina nuclear
+- Documentación y administración sanitaria
+- Audiología protésica
+- Radioterapia y dosimetría
+
+🔹 **FP Básica**:
+- Peluquería y estética
+
+🔗 Más información en: https://inmakuladatolosa.eus`;
+      }
+
       // Saludos
       if (/^(hola|buenas|hey)/.test(input)) return "¡Hola! ¿Qué necesitas?";
       if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
       if (input.includes("cómo te llamas")) return "Me llamo ChatBotJS Pro.";
       if (input.includes("gracias")) return "¡De nada!";
       if (/adiós|hasta luego|nos vemos/.test(input)) return "¡Adiós! Cuídate.";
-
-      // Hora
-      if (input.includes("hora")) {
-        const now = new Date();
-        return `Son las ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
-      }
-
-      // Número aleatorio
-      const numMatch = input.match(/número del (\d+) al (\d+)/);
-      if (numMatch) {
-        const min = parseInt(numMatch[1]);
-        const max = parseInt(numMatch[2]);
-        if (!isNaN(min) && !isNaN(max) && min < max) {
-          const rand = Math.floor(Math.random() * (max - min + 1)) + min;
-          return `Tu número aleatorio entre ${min} y ${max} es: ${rand}`;
-        }
-        return "Eso no parece una solicitud válida de número aleatorio.";
-      }
-
-      // Cálculos matemáticos
-      try {
-        const calcMatch = input.match(/(\d+)\s*(\+|\-|\*|x|\/|entre|dividido por)\s*(\d+)/);
-        if (calcMatch) {
-          let a = parseFloat(calcMatch[1]);
-          let op = calcMatch[2];
-          let b = parseFloat(calcMatch[3]);
-          if (op === "x") op = "*";
-          if (op === "entre" || op === "dividido por") op = "/";
-          let result = eval(`${a} ${op} ${b}`);
-          return `El resultado de ${a} ${op} ${b} es: ${result}`;
-        }
-      } catch (e) {
-        return "Lo intenté, pero hubo un error al calcular eso.";
-      }
-
-      // Preguntas comunes
-      if (input.includes("qué puedes hacer")) {
-        return "Puedo conversar, darte la hora, calcular operaciones y generar números aleatorios.";
-      }
 
       return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
     }
