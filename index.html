@@ -89,11 +89,12 @@
   </div>
 
   <script>
+
   const chat = document.getElementById("chat");
 
   function appendMessage(sender, message, className) {
     const msg = document.createElement("div");
-    msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
+    msg.innerHTML = <strong class="${className}">${sender}:</strong> ${message};
     chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
   }
@@ -103,8 +104,8 @@
 
     // ✅ Imagen de contacto (puedes reemplazar esta URL con la de tu imagen en GitHub)
     if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-      return `📞 Puedes contactar con nosotros aquí:<br>
-      <img src="https://github.com/UrkoChaparro/Chatbot-Froga/blob/main/telefono.png" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
+      return 📞 Puedes contactar con nosotros aquí:<br>
+      <img src="telefono.png" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">;
     }
 
     // 🏫 Respuesta sobre grados
@@ -126,12 +127,9 @@
       input.includes("hay algo para estudiar") ||
       input.includes("no se que estudiar") ||
       input.includes("inmaku") ||
-      input.includes("que puedo estudiar") ||
-      input.includes("estudios") ||
-      input.includes("que estudios hay") ||
       /te cueces|que cuentas|como andas|que pasa|ke se puede estudiar|ke hay/.test(input)
     ) {
-      return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+      return 📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
 
 🔹 **Grado Medio**:
 - Técnico en atención a personas en situación de dependencia
@@ -148,8 +146,7 @@
 🔹 **FP Básica**:
 - Peluquería y estética
 
-🔗 Más información en: https://inmakuladatolosa.eus
-
+🔗 Más información en: https://inmakuladatolosa.eus;
     }
 
     // 👋 Saludos
@@ -163,7 +160,7 @@
     if (input.includes("gracias")) return "¡De nada!";
     if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
 
-    return "Vaya... No entendí eso. Prueba con algo como: Ciclos/Número/Contactar.";
+    return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
   }
 
   function sendMessage() {
