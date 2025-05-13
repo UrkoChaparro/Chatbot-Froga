@@ -89,22 +89,22 @@
   </div>
 
   <script>
-
   const chat = document.getElementById("chat");
 
   function appendMessage(sender, message, className) {
     const msg = document.createElement("div");
     msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
+    chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
   }
 
   function getBotResponse(input) {
     input = input.toLowerCase().trim();
 
-    // ✅ Imagen de contacto (puedes reemplazar esta URL con la de tu imagen en GitHub)
+    // ✅ Imagen de contacto
     if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-      return 📞 Puedes contactar con nosotros aquí:<br>
-      <img src="https://github.com/UrkoChaparro/Chatbot-Froga/commit/ee3bf0a518c7f0662786a49e03644846d3135901" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">;
+      return `📞 Puedes contactar con nosotros aquí:<br>
+      <img src="https://github.com/UrkoChaparro/Chatbot-Froga/commit/ee3bf0a518c7f0662786a49e03644846d3135901" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
     }
 
     // 🏫 Respuesta sobre grados
@@ -125,10 +125,9 @@
       input.includes("que puedo estudiar en inmakulada") ||
       input.includes("hay algo para estudiar") ||
       input.includes("no se que estudiar") ||
-      input.includes("inmaku") ||
-      /te cueces|que cuentas|como andas|que pasa|ke se puede estudiar|ke hay/.test(input)
+      input.includes("inmaku")
     ) {
-      return 📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+      return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
 
 🔹 **Grado Medio**:
 - Técnico en atención a personas en situación de dependencia
@@ -145,7 +144,7 @@
 🔹 **FP Básica**:
 - Peluquería y estética
 
-🔗 Más información en: https://inmakuladatolosa.eus;
+🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
     }
 
     // 👋 Saludos
@@ -175,7 +174,6 @@
   document.getElementById("input").addEventListener("keydown", function (event) {
     if (event.key === "Enter") sendMessage();
   });
-
   </script>
 </body>
 </html>
