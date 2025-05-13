@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Simple</title>
+  <style>
+    body { font-family: Arial; background: #f2f2f2; padding: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; background: white; }
+    #userInput { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Chatbot Simple</h2>
+  <div id="chat"></div>
+  <div id="userInput">
+    <input type="text" id="input" placeholder="Escribe algo..." />
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+
+    function appendMessage(sender, message) {
+      const msg = document.createElement("div");
+      msg.textContent = sender + ": " + message;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+      if (input.includes("hola")) return "¡Hola! ¿Cómo estás?";
+      if (input.includes("adiós")) return "¡Hasta luego!";
+      if (input.includes("quién eres")) return "Soy un chatbot básico hecho con JavaScript.";
+      return "Lo siento, no entiendo eso.";
+    }
+
+    function sendMessage() {
+      const inputBox = document.getElementById("input");
+      const userText = inputBox.value;
+      if (userText.trim() === "") return;
+      appendMessage("Tú", userText);
+      const botReply = getBotResponse(userText);
+      setTimeout(() => appendMessage("Bot", botReply), 500);
+      inputBox.value = "";
+    }
+  </script>
+</body>
+</html>
