@@ -77,53 +77,38 @@
       background-color: #0056b3;
     }
 
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      left: 10px;
-      top: 20%;
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      width: 200px;
+    /* Nueva sección de ayuda */
+    .help-section {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 250px;
+      height: 300px;
+      overflow-y: auto;
+    }
+
+    .help-section h3 {
+      margin-top: 0;
       color: #444;
     }
 
-    .sidebar h3 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .sidebar ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .sidebar ul li {
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-
-    .sidebar ul li a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-
-    .sidebar ul li a:hover {
-      text-decoration: underline;
+    .help-section p {
+      font-size: 14px;
+      color: #555;
     }
   </style>
 </head>
 <body>
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Guía de ayuda</h3>
-    <ul>
-      <li><a href="#" onclick="sendMessage('grados')">Grados de estudio</a></li>
-      <li><a href="#" onclick="sendMessage('contactar')">Contactar con nosotros</a></li>
-    </ul>
+  <!-- Sección de ayuda -->
+  <div class="help-section">
+    <h3>Ayuda</h3>
+    <p><strong>Para saber sobre cursos:</strong> escribe "Cursos" o "Grados"</p>
+    <p><strong>Para contactar:</strong> escribe "Contacto" o "Teléfono"</p>
+    <p><strong>Para saber más sobre esta página:</strong> escribe "¿Qué puedo hacer?"</p>
   </div>
 
   <!-- Contenedor del chatbot -->
@@ -137,91 +122,100 @@
   </div>
 
   <script>
-    const chat = document.getElementById("chat");
+  const chat = document.getElementById("chat");
 
-    function appendMessage(sender, message, className) {
-      const msg = document.createElement("div");
-      msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
+  function appendMessage(sender, message, className) {
+    const msg = document.createElement("div");
+    msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function getBotResponse(input) {
+    input = input.toLowerCase().trim();
+
+    // ✅ Imagen de contacto
+    if (/número|numero|teléfono|telefono|contactar/.test(input)) {
+      return `📞 Puedes contactar con nosotros aquí:<br>
+      <img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/imagenes/telefono.png" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
     }
 
-    function getBotResponse(input) {
-      input = input.toLowerCase().trim();
+    // 🏫 Respuesta sobre grados
+    if (
+      input.includes("inmakulada") ||
+      input.includes("tolosa") ||
+      input.includes("qué grados hay") ||
+      input.includes("qué se puede estudiar") ||
+      input.includes("ciclos") ||
+      input.includes("fp") ||
+      input.includes("enfermería") ||
+      input.includes("cursos") ||
+      input.includes("grado medio") ||
+      input.includes("gradomedio") ||
+      input.includes("grado superior") ||
+      input.includes("gradosuperior") ||
+      input.includes("grados") ||
+      input.includes("que puedo estudiar en inmakulada") ||
+      input.includes("hay algo para estudiar") ||
+      input.includes("no se que estudiar") ||
+      input.includes("inmaku")
+    ) {
+      return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
 
-      // ✅ Imagen de contacto
-      if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-        return `📞 Puedes contactar con nosotros aquí:<br>
-        <img src="https://github.com/UrkoChaparro/Chatbot-Froga/blob/main/telefono.png" alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">`;
-      }
+🔹 **Grado Medio**:
+- Técnico en atención a personas en situación de dependencia
+- Auxiliar de enfermería
+- Técnico de farmacia y parafarmacia
 
-      // 🏫 Respuesta sobre grados
-      if (
-        input.includes("inmakulada") ||
-        input.includes("tolosa") ||
-        input.includes("qué grados hay") ||
-        input.includes("qué se puede estudiar") ||
-        input.includes("ciclos") ||
-        input.includes("fp") ||
-        input.includes("enfermería") ||
-        input.includes("cursos") ||
-        input.includes("grado medio") ||
-        input.includes("gradomedio") ||
-        input.includes("grado superior") ||
-        input.includes("gradosuperior") ||
-        input.includes("grados") ||
-        input.includes("que puedo estudiar en inmakulada") ||
-        input.includes("hay algo para estudiar") ||
-        input.includes("no se que estudiar") ||
-        input.includes("inmaku")
-      ) {
-        return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+🔹 **Grado Superior**:
+- Integración social
+- Diagnóstico por imagen y medicina nuclear
+- Documentación y administración sanitaria
+- Audiología protésica
+- Radioterapia y dosimetría
 
-  🔹 **Grado Medio**:
-  - Técnico en atención a personas en situación de dependencia
-  - Auxiliar de enfermería
-  - Técnico de farmacia y parafarmacia
+🔹 **FP Básica**:
+- Peluquería y estética
 
-  🔹 **Grado Superior**:
-  - Integración social
-  - Diagnóstico por imagen y medicina nuclear
-  - Documentación y administración sanitaria
-  - Audiología protésica
-  - Radioterapia y dosimetría
-
-  🔹 **FP Básica**:
-  - Peluquería y estética
-
-  🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
-      }
-
-      // 👋 Saludos
-      if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
-        return "¡Hola! ¿Qué necesitas? 😊";
-      }
-
-      // 🔄 Otras respuestas comunes
-      if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
-      if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
-      if (input.includes("gracias")) return "¡De nada!";
-      if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
-
-      return "Vaya... No te he entendido. Prueba con: Cursos/Contactar.";
+🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
     }
 
-    function sendMessage(input = '') {
-      const inputBox = document.getElementById("input");
-      const userText = input ? input : inputBox.value;
-      if (userText.trim() === "") return;
-      appendMessage("Tú", userText, "user");
-      const botReply = getBotResponse(userText);
-      setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
-      inputBox.value = "";
+    // 👋 Respuesta de ayuda
+    if (/^(ayuda|ayudas)/.test(input)) {
+      return `📝 Aquí tienes algunos comandos útiles:
+
+- Para saber sobre cursos: escribe "Cursos" o "Grados"
+- Para contactar: escribe "Contacto" o "Teléfono"
+- Para saber más sobre esta página: escribe "¿Qué puedo hacer?"`;
     }
 
-    document.getElementById("input").addEventListener("keydown", function (event) {
-      if (event.key === "Enter") sendMessage();
-    });
+    // 👋 Saludos
+    if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
+      return "¡Hola! ¿Qué necesitas? 😊";
+    }
+
+    // 🔄 Otras respuestas comunes
+    if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
+    if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
+    if (input.includes("gracias")) return "¡De nada!";
+    if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
+
+    return "Vaya... No te he entendido. Prueba con: Cursos/Contactar.";
+  }
+
+  function sendMessage() {
+    const inputBox = document.getElementById("input");
+    const userText = inputBox.value;
+    if (userText.trim() === "") return;
+    appendMessage("Tú", userText, "user");
+    const botReply = getBotResponse(userText);
+    setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
+    inputBox.value = "";
+  }
+
+  document.getElementById("input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") sendMessage();
+  });
   </script>
 </body>
 </html>
