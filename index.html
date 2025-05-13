@@ -19,7 +19,7 @@
       background-color: white;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      width: 500px; /* Aumenté el ancho */
+      width: 500px;
       max-width: 90%;
       padding: 20px;
     }
@@ -33,22 +33,22 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 15px;
-      height: 350px; /* Aumenté la altura */
+      height: 350px;
       overflow-y: auto;
       background-color: #f9f9f9;
       margin-bottom: 15px;
     }
 
-    .user, .bot {
+    .user, .inmakubot {
       margin: 10px 0;
-      line-height: 1.6; /* Mayor espacio entre líneas */
+      line-height: 1.6;
     }
 
     .user {
       color: #007BFF;
     }
 
-    .bot {
+    .inmakubot {
       color: #28A745;
     }
 
@@ -150,7 +150,7 @@ ___________________________________________
 
       // Otras respuestas comunes
       if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
-      if (input.includes("cómo te llamas")) return "Me llamo ChatBotJS Pro.";
+      if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
       if (input.includes("gracias")) return "¡De nada!";
       if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
 
@@ -163,7 +163,7 @@ ___________________________________________
       if (userText.trim() === "") return;
       appendMessage("Tú", userText, "user");
       const botReply = getBotResponse(userText);
-      setTimeout(() => appendMessage("Bot", botReply, "bot"), 500);
+      setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
       inputBox.value = "";
     }
 
