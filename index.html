@@ -1,49 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbot Simple</title>
+  <title>Chatbot Inteligente</title>
   <style>
-    body { font-family: Arial; background: #f2f2f2; padding: 20px; }
-    #chat { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; background: white; }
-    #userInput { margin-top: 10px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: 400px;
+      max-width: 90%;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #444;
+    }
+
+    #chat {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      height: 300px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      margin-bottom: 10px;
+    }
+
+    .user { color: #007BFF; margin: 5px 0; }
+    .bot { color: #28A745; margin: 5px 0; }
+
+    #userInput {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
-  <h2>Chatbot Simple</h2>
-  <div id="chat"></div>
-  <div id="userInput">
-    <input type="text" id="input" placeholder="Escribe algo..." />
-    <button onclick="sendMessage()">Enviar</button>
+  <div class="container">
+    <h2>Chatbot Inteligente</h2>
+    <div id="chat"></div>
+    <div id="userInput">
+      <input type="text" id="input" placeholder="Escribe algo..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
   </div>
 
   <script>
     const chat = document.getElementById("chat");
 
-    function appendMessage(sender, message) {
+    function appendMessage(sender, message, className) {
       const msg = document.createElement("div");
-      msg.textContent = sender + ": " + message;
+      msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
       chat.appendChild(msg);
       chat.scrollTop = chat.scrollHeight;
     }
 
     function getBotResponse(input) {
-      input = input.toLowerCase();
-      if (input.includes("hola")) return "¡Hola! ¿Cómo estás?";
-      if (input.includes("adiós")) return "¡Hasta luego!";
-      if (input.includes("quién eres")) return "Soy un chatbot básico hecho con JavaScript.";
-      return "Lo siento, no entiendo eso.";
+      input = input.toLowerCase().trim();
+
+      // Saludos
+      if (/^(hola|buenas|hey)/.test(input)) return "¡Hola! ¿Qué necesitas?";
+      if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
+      if (input.includes("cómo te llamas")) return "Me llamo ChatBotJS Pro.";
+      if (input.includes("gracias")) return "¡De nada!";
+      if (/adiós|hasta luego|nos vemos/.test(input)) return "¡Adiós! Cuídate.";
+
+      // Hora
+      if (input.includes("hora")) {
+        const now = new Date();
+        return `Son las ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+      }
+
+      // Número aleatorio
+      const numMatch = input.match(/número del (\d+) al (\d+)/);
+      if (numMatch) {
+        const min = parseInt(numMatch[1]);
+        const max = parseInt(numMatch[2]);
+        if (!isNaN(min) && !isNaN(max) && min < max) {
+          const rand = Math.floor(Math.random() * (max - min + 1)) + min;
+          return `Tu número aleatorio entre ${min} y ${max} es: ${rand}`;
+        }
+        return "Eso no parece una solicitud válida de número aleatorio.";
+      }
+
+      // Cálculos matemáticos
+      try {
+        const calcMatch = input.match(/(\d+)\s*(\+|\-|\*|x|\/|entre|dividido por)\s*(\d+)/);
+        if (calcMatch) {
+          let a = parseFloat(calcMatch[1]);
+          let op = calcMatch[2];
+          let b = parseFloat(calcMatch[3]);
+          if (op === "x") op = "*";
+          if (op === "entre" || op === "dividido por") op = "/";
+          let result = eval(`${a} ${op} ${b}`);
+          return `El resultado de ${a} ${op} ${b} es: ${result}`;
+        }
+      } catch (e) {
+        return "Lo intenté, pero hubo un error al calcular eso.";
+      }
+
+      // Preguntas comunes
+      if (input.includes("qué puedes hacer")) {
+        return "Puedo conversar, darte la hora, calcular operaciones y generar números aleatorios.";
+      }
+
+      return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
     }
 
     function sendMessage() {
       const inputBox = document.getElementById("input");
       const userText = inputBox.value;
       if (userText.trim() === "") return;
-      appendMessage("Tú", userText);
+      appendMessage("Tú", userText, "user");
       const botReply = getBotResponse(userText);
-      setTimeout(() => appendMessage("Bot", botReply), 500);
+      setTimeout(() => appendMessage("Bot", botReply, "bot"), 500);
       inputBox.value = "";
     }
+
+    document.getElementById("input").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") sendMessage();
+    });
   </script>
 </body>
 </html>
