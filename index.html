@@ -19,7 +19,7 @@
       background-color: white;
       border-radius: 10px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-      width: 400px;
+      width: 500px; /* Aumenté el ancho */
       max-width: 90%;
       padding: 20px;
     }
@@ -32,15 +32,25 @@
     #chat {
       border: 1px solid #ccc;
       border-radius: 5px;
-      padding: 10px;
-      height: 300px;
+      padding: 15px;
+      height: 350px; /* Aumenté la altura */
       overflow-y: auto;
       background-color: #f9f9f9;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
-    .user { color: #007BFF; margin: 5px 0; }
-    .bot { color: #28A745; margin: 5px 0; }
+    .user, .bot {
+      margin: 10px 0;
+      line-height: 1.6; /* Mayor espacio entre líneas */
+    }
+
+    .user {
+      color: #007BFF;
+    }
+
+    .bot {
+      color: #28A745;
+    }
 
     #userInput {
       display: flex;
@@ -49,13 +59,13 @@
 
     input[type="text"] {
       flex: 1;
-      padding: 8px;
+      padding: 10px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
 
     button {
-      padding: 8px 16px;
+      padding: 10px 20px;
       background-color: #007BFF;
       border: none;
       color: white;
@@ -99,7 +109,9 @@
         input.includes("qué se puede estudiar") ||
         input.includes("ciclos") ||
         input.includes("fp") ||
-        input.includes("enfermería en tolosa")
+        input.includes("enfermería") ||
+        input.includes("cursos") ||
+        /te cueces|que cuentas|como andas|que pasa|ke se puede estudiar|ke hay/.test(input)
       ) {
         return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
 
@@ -122,11 +134,15 @@
       }
 
       // Saludos
-      if (/^(hola|buenas|hey)/.test(input)) return "¡Hola! ¿Qué necesitas?";
+      if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
+        return "¡Hola! ¿Qué necesitas? 😊";
+      }
+
+      // Otras respuestas comunes
       if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
       if (input.includes("cómo te llamas")) return "Me llamo ChatBotJS Pro.";
       if (input.includes("gracias")) return "¡De nada!";
-      if (/adiós|hasta luego|nos vemos/.test(input)) return "¡Adiós! Cuídate.";
+      if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
 
       return "Hmm... no entendí eso. Intenta preguntarme algo distinto.";
     }
