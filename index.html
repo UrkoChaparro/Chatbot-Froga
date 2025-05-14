@@ -17,33 +17,29 @@
       height: 100vh;
     }
 
-  .container {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  width: 700px; /* antes 500px */
-  max-width: 95%;
-  padding: 30px; /* un poco más amplio */
-}
-
-
-
-
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      width: 700px;
+      max-width: 95%;
+      padding: 30px;
+    }
 
     h2 {
       text-align: center;
       color: #444;
     }
 
-   #chat {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  height: 500px; /* antes 350px */
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  margin-bottom: 20px;
-   }
+    #chat {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      height: 500px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      margin-bottom: 20px;
+    }
 
     .user, .inmakubot {
       margin: 10px 0;
@@ -83,7 +79,6 @@
       background-color: #0056b3;
     }
 
-    /* Nueva sección de ayuda */
     .help-section {
       position: absolute;
       left: 20px;
@@ -109,10 +104,6 @@
   </style>
 </head>
 <body>
-  <!-- Sección de ayuda -->
-  
-
-  <!-- Contenedor del chatbot -->
   <div class="container">
     <h2>Chatbot Inmakulada Tolosa</h2>
     <div id="chat"></div>
@@ -127,7 +118,7 @@
 
   function appendMessage(sender, message, className) {
     const msg = document.createElement("div");
-    msg.innerHTML = `<strong class="${className}">${sender}:</strong> ${message}`;
+    msg.innerHTML = `<div class="${className}"><strong>${sender}:</strong> ${message}</div>`;
     chat.appendChild(msg);
     chat.scrollTop = chat.scrollHeight;
   }
@@ -135,15 +126,12 @@
   function getBotResponse(input) {
     input = input.toLowerCase().trim();
 
-    // ✅ Imagen de contacto
     if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-     return '📞 Puedes contactar con nosotros aquí:<br>' +
-       '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png" ' +
-       'alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">';
-
+      return '📞 Puedes contactar con nosotros aquí:<br>' +
+        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png" ' +
+        'alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">';
     }
 
-    // 🏫 Respuesta sobre grados
     if (
       input.includes("inmakulada") ||
       input.includes("tolosa") ||
@@ -164,85 +152,68 @@
       input.includes("inmaku")
     ) {
       return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+      🔹 **Grado Medio**:
+      - Técnico en atención a personas en situación de dependencia
+      - Auxiliar de enfermería
+      - Técnico de farmacia y parafarmacia
 
+      🔹 **Grado Superior**:
+      - Integración social
+      - Diagnóstico por imagen y medicina nuclear
+      - Documentación y administración sanitaria
+      - Audiología protésica
+      - Radioterapia y dosimetría
 
-🔹 **Grado Medio**:
-- Técnico en atención a personas en situación de dependencia
-- Auxiliar de enfermería
-- Técnico de farmacia y parafarmacia
+      🔹 **FP Básica**:
+      - Peluquería y estética
 
-
-🔹 **Grado Superior**:
-- Integración social
-- Diagnóstico por imagen y medicina nuclear
-- Documentación y administración sanitaria
-- Audiología protésica
-- Radioterapia y dosimetría
-
-
-🔹 **FP Básica**:
-- Peluquería y estética
-
-
-🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
+      🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
     }
 
-    // 👋 Respuesta de ayuda
     if (/^(ayuda|ayudas)/.test(input)) {
       return `📝 Aquí tienes algunos comandos útiles:
 
-📚 *Estudios*:
-- ¿Qué grados hay? / Cursos / FP / Enfermería
+      📚 *Estudios*:
+      - ¿Qué grados hay? / Cursos / FP / Enfermería
 
-📞 *Contacto y horarios del centro*:
-- Contacto / Teléfono / Número
+      📞 *Contacto y horarios del centro*:
+      - Contacto / Teléfono / Número
 
-🏫 *Sobre nosotros*:
-- Sobre / Nosotros / Quiénes somos / Personal
+      🏫 *Sobre nosotros*:
+      - Sobre / Nosotros / Quiénes somos / Personal
 
-💬 *Frases comunes*:
-- Hola / Buenas / ¿Cómo estás? / ¿Cómo te llamas? / Gracias / Adiós
+      💬 *Frases comunes*:
+      - Hola / Buenas / ¿Cómo estás? / ¿Cómo te llamas? / Gracias / Adiós
 
-🧑‍🤝‍🧑 *Personal":
--Quiénes somos / Personal
+      🧑‍🤝‍🧑 *Personal*:
+      - Quiénes somos / Personal
 
-🌐 Más info: https://inmakuladatolosa.eus`;
-}
+      🌐 Más info: https://inmakuladatolosa.eus`;
+    }
 
-    // 👋 Saludos
     if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
       return "¡Hola! ¿Qué necesitas? 😊";
     }
 
-    // 🔄 Otras respuestas comunes
     if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
     if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
     if (input.includes("gracias")) return "¡De nada!";
     if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
 
-    // 🖼️ Respuesta con imagen sobre nosotros
-if (/sobre nosotros|nosotros|sobre/.test(input)) {
-  return '👥 Aquí tienes información sobre nosotros:<br>' +
-    '<img src="https:///raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/quienes.png" ' +
-    'alt="Sobre nosotros" style="max-width:100%; border-radius:8px; margin-top:10px;">';
-}
-// 🧑‍🤝‍🧑 Respuesta con información del personal
-if (/quienes somos|quiénes somos|personas|personal/.test(input)) {
-  return '👩‍🏫 Este es el equipo humano de Inmakulada Tolosa:<br>' +
-    '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/personal.png" ' +
-    'alt="Equipo Inmakulada" style="max-width:100%; border-radius:8px; margin-top:10px;"><br>' +
-    '35 langile inguruk osatzen dugu gure ikastola. TILIn ez dugu ierarkiarik.
+    if (/sobre nosotros|nosotros|sobre/.test(input)) {
+      return '👥 Aquí tienes información sobre nosotros:<br>' +
+        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/quienes.png" ' +
+        'alt="Sobre nosotros" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+    }
 
-Guretako bakoitzaren garapen osoa eta integrala lortzearren, Pertsonak kudeatzeko Sistema bat daukagu erabat hedatua. Honen bitartez, pertsonaren eremu ezberdinak lantzen ditugu:
+    if (/quienes somos|quiénes somos|personas|personal/.test(input)) {
+      return '👩‍🏫 Este es el equipo humano de Inmakulada Tolosa:<br>' +
+        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/personal.png" ' +
+        'alt="Equipo Inmakulada" style="max-width:100%; border-radius:8px; margin-top:10px;"><br>' +
+        '35 langile inguruk osatzen dugu gure ikastola. TILIn ez dugu ierarkiarik...';
+    }
 
-Pertsonaren lan postuaren egokitzapena.
-Pertsonaren jardueraren ebaluazioa.
-Pertsonaren formazioa
-Pertsonaren errekonozimendua eta motibazioa.
-Eta persona bakoitzaren lan eremu hauen garatzeko , KEG (Konpetentzien Etengabeko Garapena) tresna erabiltzen dugu. Tresna honi esker, persona bakoitzaren hasierako diagnosia egin ondoren, bere konpetentziak garatzeko Formazio Plan Indibiduala egokitzen zaio eta amaierako ebaluazioa egin ondoren, berriro bere indarguneak, ahuldadeak eta formazio beharrak identifikatzen ditugu, pertsonaren etengabeko hobekuntza ziurtatuz eta gure formazioaren eraginkortasuna neurtuz.';
-}
-
-    return "Vaya... No te he entendido. Prueba a escribir "ayuda"";
+    return 'Vaya... No te he entendido. Prueba a escribir "ayuda".';
   }
 
   function sendMessage() {
