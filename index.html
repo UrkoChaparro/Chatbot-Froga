@@ -200,6 +200,13 @@
     if (input.includes("gracias")) return "¡De nada!";
     if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
 
+    // 🖼️ Respuesta con imagen sobre nosotros
+if (/sobre nosotros|nosotros|sobre/.test(input)) {
+  return '👥 Aquí tienes información sobre nosotros:<br>' +
+    '<img src="https://github.com/UrkoChaparro/Chatbot-Froga/blob/main/quienes.png" ' +
+    'alt="Sobre nosotros" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+}
+
     return "Vaya... No te he entendido. Prueba con: Cursos/Contactar.";
   }
 
