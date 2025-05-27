@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chatbot Inmakulada Tolosa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #667eea, #764ba2);
       margin: 0;
       padding: 0;
@@ -18,40 +18,58 @@
     }
 
     .container {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
       width: 700px;
       max-width: 95%;
-      padding: 30px;
+      padding: 30px 40px;
+      position: relative;
     }
 
     h2 {
       text-align: center;
       color: #444;
+      margin-bottom: 20px;
     }
 
     #chat {
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
       padding: 20px;
       height: 500px;
       overflow-y: auto;
-      background-color: #f9f9f9;
+      background-color: #fafafa;
       margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.5;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+      scroll-behavior: smooth;
+      display: flex;
+      flex-direction: column;
     }
 
     .user, .inmakubot {
       margin: 10px 0;
       line-height: 1.6;
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      word-wrap: break-word;
     }
 
     .user {
       color: #007BFF;
+      background-color: #e7f1ff;
+      align-self: flex-end;
+      margin-left: auto;
     }
 
     .inmakubot {
       color: #28A745;
+      background-color: #e6f4ea;
+      align-self: flex-start;
+      margin-right: auto;
     }
 
     #userInput {
@@ -61,24 +79,53 @@
 
     input[type="text"] {
       flex: 1;
-      padding: 10px;
-      border-radius: 5px;
+      padding: 12px 15px;
+      border-radius: 25px;
       border: 1px solid #ccc;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #667eea;
+      outline: none;
     }
 
     button {
-      padding: 10px 20px;
-      background-color: #007BFF;
+      padding: 12px 25px;
+      background-color: #667eea;
       border: none;
       color: white;
-      border-radius: 5px;
+      border-radius: 25px;
       cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #555dc1;
     }
 
+    button::before {
+      content: "✉️";
+      margin-right: 8px;
+    }
+
+    /* Scroll personalizado */
+    #chat::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #chat::-webkit-scrollbar-thumb {
+      background-color: #667eea;
+      border-radius: 4px;
+    }
+
+    #chat::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+
+    /* Mantener esta parte si tienes .help-section */
     .help-section {
       position: absolute;
       left: 20px;
@@ -106,8 +153,8 @@
 <body>
   <div class="container">
     <div style="text-align:center; margin-bottom: 20px;">
-  <img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/logoa.jpg" alt="Logo Inmakulada Tolosa" style="max-width: 200px; height: auto;">
-</div>
+      <img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/logoa.jpg" alt="Logo Inmakulada Tolosa" style="max-width: 200px; height: auto;" />
+    </div>
     <div id="chat"></div>
     <div id="userInput">
       <input type="text" id="input" placeholder="Escribe algo..." />
@@ -116,131 +163,132 @@
   </div>
 
   <script>
-  const chat = document.getElementById("chat");
+    const chat = document.getElementById("chat");
 
-  function appendMessage(sender, message, className) {
-    const msg = document.createElement("div");
-    msg.innerHTML = `<div class="${className}"><strong>${sender}:</strong> ${message}</div>`;
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
-  }
-
-  function getBotResponse(input) {
-    input = input.toLowerCase().trim();
-
-    if (/número|numero|teléfono|telefono|contactar/.test(input)) {
-      return '📞 Puedes contactar con nosotros aquí:<br>' +
-        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png" ' +
-        'alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+    function appendMessage(sender, message, className) {
+      const msg = document.createElement("div");
+      msg.className = className;
+      msg.innerHTML = `<strong>${sender}:</strong> <span>${message}</span>`;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
     }
 
-    if (
-      input.includes("inmakulada") ||
-      input.includes("tolosa") ||
-      input.includes("qué grados hay") ||
-      input.includes("qué se puede estudiar") ||
-      input.includes("ciclos") ||
-      input.includes("fp") ||
-      input.includes("enfermería") ||
-      input.includes("cursos") ||
-      input.includes("grado medio") ||
-      input.includes("gradomedio") ||
-      input.includes("grado superior") ||
-      input.includes("gradosuperior") ||
-      input.includes("grados") ||
-      input.includes("que puedo estudiar en inmakulada") ||
-      input.includes("hay algo para estudiar") ||
-      input.includes("no se que estudiar") ||
-      input.includes("inmaku")
-    ) {
-      return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
-      🔹 **Grado Medio**:
-      - Técnico en atención a personas en situación de dependencia
-      - Auxiliar de enfermería
-      - Técnico de farmacia y parafarmacia
+    function getBotResponse(input) {
+      input = input.toLowerCase().trim();
 
-      🔹 **Grado Superior**:
-      - Integración social
-      - Diagnóstico por imagen y medicina nuclear
-      - Documentación y administración sanitaria
-      - Audiología protésica
-      - Radioterapia y dosimetría
+      if (/número|numero|teléfono|telefono|contactar/.test(input)) {
+        return '📞 Puedes contactar con nosotros aquí:<br>' +
+          '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/telefono.png" ' +
+          'alt="Teléfono de contacto" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+      }
 
-      🔹 **FP Básica**:
-      - Peluquería y estética
+      if (
+        input.includes("inmakulada") ||
+        input.includes("tolosa") ||
+        input.includes("qué grados hay") ||
+        input.includes("qué se puede estudiar") ||
+        input.includes("ciclos") ||
+        input.includes("fp") ||
+        input.includes("enfermería") ||
+        input.includes("cursos") ||
+        input.includes("grado medio") ||
+        input.includes("gradomedio") ||
+        input.includes("grado superior") ||
+        input.includes("gradosuperior") ||
+        input.includes("grados") ||
+        input.includes("que puedo estudiar en inmakulada") ||
+        input.includes("hay algo para estudiar") ||
+        input.includes("no se que estudiar") ||
+        input.includes("inmaku")
+      ) {
+        return `📚 En el centro de Formación Profesional *Inmakulada Tolosa* puedes estudiar:
+        🔹 **Grado Medio**:
+        - Técnico en atención a personas en situación de dependencia
+        - Auxiliar de enfermería
+        - Técnico de farmacia y parafarmacia
 
-      🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
+        🔹 **Grado Superior**:
+        - Integración social
+        - Diagnóstico por imagen y medicina nuclear
+        - Documentación y administración sanitaria
+        - Audiología protésica
+        - Radioterapia y dosimetría
+
+        🔹 **FP Básica**:
+        - Peluquería y estética
+
+        🔗 Más información en: <a href="https://inmakuladatolosa.eus" target="_blank">inmakuladatolosa.eus</a>`;
+      }
+
+      if (/^(ayuda|ayudas)/.test(input)) {
+        return `📝 Aquí tienes algunos comandos útiles:
+
+        📚 *Estudios*:
+        - ¿Qué grados hay? / Cursos / FP 
+
+        
+
+        📞 *Contacto y horarios del centro*:
+        - Contactar / Teléfono / Número
+
+        
+
+        🏫 *Sobre nosotros*:
+        - Sobre / Nosotros / Quiénes somos
+
+        
+
+        💬 *Frases comunes*:
+        - Hola / Buenas / ¿Cómo estás? / ¿Cómo te llamas? / Gracias / Adiós
+
+        
+
+        🧑‍🤝‍🧑 *Personal*:
+        - Personas / Personal / foto
+
+        
+
+        🌐 Más info: https://inmakuladatolosa.eus`;
+      }
+
+      if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
+        return "¡Hola! ¿Qué necesitas? 😊";
+      }
+
+      if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
+      if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
+      if (input.includes("gracias")) return "¡De nada!";
+      if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
+
+      if (/sobre nosotros|nosotros|sobre/.test(input)) {
+        return '👥 Aquí tienes información sobre nosotros:<br>' +
+          '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/quienes.png" ' +
+          'alt="Sobre nosotros" style="max-width:100%; border-radius:8px; margin-top:10px;">';
+      }
+
+      if (/quienes somos|quiénes somos|personas|personal/.test(input)) {
+        return '👩‍🏫 Este es el equipo humano de Inmakulada Tolosa:<br>' +
+          '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/personal.png" ' +
+          'alt="Equipo Inmakulada" style="max-width:100%; border-radius:8px; margin-top:10px;"><br>' +
+          '35 langile inguruk osatzen dugu gure ikastola. TILIn ez dugu ierarkiarik...';
+      }
+
+      return 'Vaya... No te he entendido. Prueba a escribir "ayuda".';
     }
 
-    if (/^(ayuda|ayudas)/.test(input)) {
-      return `📝 Aquí tienes algunos comandos útiles:
-
-      📚 *Estudios*:
-      - ¿Qué grados hay? / Cursos / FP 
-
-      
-
-      📞 *Contacto y horarios del centro*:
-      - Contactar / Teléfono / Número
-
-      
-
-      🏫 *Sobre nosotros*:
-      - Sobre / Nosotros / Quiénes somos
-
-      
-
-      💬 *Frases comunes*:
-      - Hola / Buenas / ¿Cómo estás? / ¿Cómo te llamas? / Gracias / Adiós
-
-      
-
-      🧑‍🤝‍🧑 *Personal*:
-      - Personas / Personal / foto
-
-      
-
-      🌐 Más info: https://inmakuladatolosa.eus`;
+    function sendMessage() {
+      const inputBox = document.getElementById("input");
+      const userText = inputBox.value;
+      if (userText.trim() === "") return;
+      appendMessage("Tú", userText, "user");
+      const botReply = getBotResponse(userText);
+      setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
+      inputBox.value = "";
     }
 
-    if (/^(hola|buenas|hey|que tal|que pasa|como andas|ola)/.test(input)) {
-      return "¡Hola! ¿Qué necesitas? 😊";
-    }
-
-    if (input.includes("cómo estás")) return "Estoy genial, gracias. ¿Y tú?";
-    if (input.includes("cómo te llamas")) return "Me llamo Inmakubot.";
-    if (input.includes("gracias")) return "¡De nada!";
-    if (/adiós|hasta luego|nos vemos|chau/.test(input)) return "¡Adiós! Cuídate.";
-
-    if (/sobre nosotros|nosotros|sobre/.test(input)) {
-      return '👥 Aquí tienes información sobre nosotros:<br>' +
-        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/quienes.png" ' +
-        'alt="Sobre nosotros" style="max-width:100%; border-radius:8px; margin-top:10px;">';
-    }
-
-    if (/quienes somos|quiénes somos|personas|personal/.test(input)) {
-      return '👩‍🏫 Este es el equipo humano de Inmakulada Tolosa:<br>' +
-        '<img src="https://raw.githubusercontent.com/UrkoChaparro/Chatbot-Froga/main/personal.png" ' +
-        'alt="Equipo Inmakulada" style="max-width:100%; border-radius:8px; margin-top:10px;"><br>' +
-        '35 langile inguruk osatzen dugu gure ikastola. TILIn ez dugu ierarkiarik...';
-    }
-
-    return 'Vaya... No te he entendido. Prueba a escribir "ayuda".';
-  }
-
-  function sendMessage() {
-    const inputBox = document.getElementById("input");
-    const userText = inputBox.value;
-    if (userText.trim() === "") return;
-    appendMessage("Tú", userText, "user");
-    const botReply = getBotResponse(userText);
-    setTimeout(() => appendMessage("Inmakubot", botReply, "inmakubot"), 500);
-    inputBox.value = "";
-  }
-
-  document.getElementById("input").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") sendMessage();
-  });
+    document.getElementById("input").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") sendMessage();
+    });
   </script>
 </body>
 </html>
